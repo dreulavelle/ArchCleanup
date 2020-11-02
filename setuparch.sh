@@ -56,6 +56,7 @@ sudo chsh $user -s /bin/zsh
 # Installing Meslo NF Fonts
 echo "Installing Meslo NF Fonts"
 cp assets/fonts/Meslo* /usr/share/fonts
+fc-cache -vf
 
 # Configuring Zsh
 echo "Adding Zsh Config"
