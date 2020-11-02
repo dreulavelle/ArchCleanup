@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Updating Mirrors
+echo "Updating Mirrors"
+curl -vs "https://www.archlinux.org/mirrorlist/?use_mirror_status=on" | sed -e 's/^#Server/Server/' -e '/^#/d' | rankmirrors -vn 0 - > ~/mirrors.txt
+sudo cp ~/mirrors.txt /etc/pacman.d/mirrorlist
+
 # Running initial updates 
 echo "Updating System"
 sudo pacman -Syu
@@ -11,6 +16,10 @@ sudo pacman -Rns $(pacman -Qtdq)
 # Optimize Pacman database and servers
 echo "Optimize Pacman"
 sudo pacman-optimize
+
+# Remove Bloatware Apps
+echo "Removing Bloat Apps"
+sudo pacman -Rsu konsole xfce4-terminal fontforge
 
 # Install Yay (AUR package manager)
 echo "Installing Yay"
