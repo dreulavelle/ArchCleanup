@@ -1,6 +1,6 @@
 #!/bin/bash
 # Author: Dreu LaVelle
-
+# Kodi build coming soon!
 
 # Updating Mirrors
 echo "Updating Mirrors"
