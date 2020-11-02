@@ -53,6 +53,10 @@ yay -S --noconfirm zsh-theme-powerlevel10k-git
 echo 'source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme' >>! ~/.zshrc
 sudo chsh $user -s /bin/zsh
 
+# Installing Meslo NF Fonts
+echo "Installing Meslo NF Fonts"
+cp assets/fonts/Meslo* /usr/share/fonts
+
 # Configuring Zsh
 echo "Adding Zsh Config"
 rm -f ~/.zshrc
@@ -63,10 +67,26 @@ echo "Adding Neofetch Config"
 rm -f ~/.config/neofetch/config.conf
 cp Configs/neofetch.conf ~/.config/neofetch/config.conf
 
-# Leave at end-of-file
-# Tidying Up
+# Tidying Up (leave at eof)
 echo "Tidying up a little"
 rm -rf ~/.cache/*
+sudo paccache -rk 1
+sudo paccache -ruk0
+sudo pacman -Sc
 rm -rf ~/.local/share/Trash/*
 rm -f ~/.local/share/user-places*
 rm -f ~/rmlint.*
+
+# Bleachbit Cleaning <3
+sudo pacman -S Bleachbit
+bleachbit -c system.trash
+bleachbit -c system.tmp
+bleachbit -c system.recent_documents
+bleachbit -c system.clipboard
+bleachbit -c google_chrome.cache google_chrome.vacuum
+bleachbit -c firefox.cache firefox.crash_reports
+bleachbit -c deepscan.tmp deepscan.thumbs_db
+bleachbit -c dnf.autoremove dnf.clean_all
+
+# Clearing logs (Only keeps recent 10mb worth of logs)
+sudo journalctl --vacuum-size=10M
