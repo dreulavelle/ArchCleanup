@@ -1,4 +1,6 @@
 #!/bin/bash
+# Author: Dreu LaVelle
+
 
 # Updating Mirrors
 echo "Updating Mirrors"
