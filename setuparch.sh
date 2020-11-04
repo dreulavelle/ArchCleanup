@@ -49,6 +49,7 @@ curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | gpg --import 
 yay -S spotify
 
 # Install zsh + powerlevel10k
+# sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"  <-- Oh My Zsh Install
 echo "Installing Zsh + p10k"
 sudo pacman -S zsh
 yay -S --noconfirm zsh-theme-powerlevel10k-git
@@ -73,12 +74,18 @@ cp Configs/neofetch.conf ~/.config/neofetch/config.conf
 # Tidying Up (leave at eof)
 echo "Tidying up a little"
 rm -rf ~/.cache/*
-sudo paccache -rk 1
-sudo paccache -ruk0
+sudo paccache -rvk 1
+sudo paccache -rvuk0
 sudo pacman -Sc
+pamac clean -bv
 rm -rf ~/.local/share/Trash/*
 rm -f ~/.local/share/user-places*
 rm -f ~/rmlint.*
+
+# Clean temporary build files
+rm -rf ~/{.cargo,.cmake,.electron,.electron-gyp,.npm,.nvm,.racket,.stack,.yarn} || true
+rm -rf ~/.cache/{electron,electron-builder,go-build,node-gyp,pip,yarn} || true
+sudo rm -rf ~/go || true
 
 # Bleachbit Cleaning <3
 sudo pacman -S Bleachbit
